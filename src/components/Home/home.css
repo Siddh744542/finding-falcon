@@ -1,0 +1,11 @@
+.heading {
+    color:blueviolet;
+    display: "flex";
+    text-align: center;
+    font-size: 3rem;
+}
+.subheading {
+    display: "flex";
+    text-align: center;
+    font-size: 2rem;
+}
