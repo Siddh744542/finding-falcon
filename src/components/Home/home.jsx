@@ -38,17 +38,20 @@ const Home = () => {
           <p className='subheading'>
             Select Planets you want to search in:
           </p>
-          <div>
-          <label htmlFor="destination1">Destination 1 </label>
-            <select name='destination1' id='destination1' onChange={(e)=>{handleChange(e)}} defaultValue="none">
-            <option value="none" disabled>Select</option>
-                {
-                  updatePlanet().map((planet, index) => (
-                    <option key={index} value={planet.name}>{planet.name}</option>
-                  ))
-                }
-            </select>
+          <div className='container'>
+            <div className='destination-container'>
+            <label htmlFor="destination1">Destination 1 </label>
+              <select name='destination1' id='destination1' onChange={(e)=>{handleChange(e)}} defaultValue="none">
+              <option value="none" disabled>Select</option>
+                  {
+                    updatePlanet().map((planet, index) => (
+                      <option key={index} value={planet.name}>{planet.name}</option>
+                    ))
+                  }
+              </select>
+            </div>
           </div>
+          
         </div>
     </div>
   )

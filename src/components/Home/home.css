@@ -9,3 +9,14 @@
     text-align: center;
     font-size: 2rem;
 }
+
+.destination-container {
+    width: rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.container {
+    display: flex;
+    margin: 0 auto;
+}
