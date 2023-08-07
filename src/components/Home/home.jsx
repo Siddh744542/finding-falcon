@@ -12,8 +12,9 @@ const Home = () => {
       .catch(error => console.error(error));
   },[]);
   
-  function updatePlanet({selectedPlanet}) {
+  function updatePlanet(selectedPlanet) {
     const updated = planets.filter(planet => planet.name !== selectedPlanet);
+    console.log(updated);
     setPlanets(updated);
   }
   

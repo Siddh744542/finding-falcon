@@ -2,27 +2,24 @@ import React,{useState} from 'react'
 import "./destination.css" 
  
 const Destination = ({updatePlanet, planets, index}) => { 
-    const [selected , setSelected] = useState("none") 
+    const [selected , setSelected] = useState("none");
  
-    const handleClick = (event)=>{ 
-        setSelected(event.target.value); 
-        updatePlanet(event.target.value);
-    } 
+    const handleChange = (event) => {
+        console.log("handle click called");
+        const selectedValue = event.target.value;
+        setSelected(selectedValue);
+        updatePlanet(selectedValue);
+    }
  
-    // const handleChange = (event) =>{ 
-    //     console.log("handleChange"); 
-    //     const selectedIndex = event.target.options.selectedIndex; 
-         
-    // } 
     const name = `destinaion${index}`; 
   return ( 
     <div className='destination-container'> 
         <label htmlFor={name}>Destination {index} </label> 
         <select name={selected} id={name}  defaultValue="none" > 
-        <option value={selected} disabled>Select</option> 
+        <option value="none" disabled>Select</option> 
             { 
             planets.map((planet, index) => ( 
-                <option key={index} name={index} value={planet.name} onClick={(event)=>handleClick(event)} >{planet.name}</option> 
+                <option key={index} name={index} value={planet.name} onChange={handleChange} >{planet.name}</option> 
             )) 
             } 
         </select> 
