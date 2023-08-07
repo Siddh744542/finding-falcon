@@ -1,0 +1,6 @@
+.destination-container {
+    width: rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
