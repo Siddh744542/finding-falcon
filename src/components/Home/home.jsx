@@ -4,7 +4,6 @@ import "./home.css";
 
 const Home = () => {
   const [planets, setPlanets] = useState([]);
-  const [selectedPlanets, setSelectedPlanets] = useState([]);
 
   useEffect(()=>{
     fetch('https://findfalcone.geektrust.com/planets')
@@ -13,13 +12,11 @@ const Home = () => {
       .catch(error => console.error(error));
   },[]);
   
-  function updatePlanet() {
-    return planets.filter(planet => !selectedPlanets.includes(planet));
+  function updatePlanet({selectedPlanet}) {
+    const updated = planets.filter(planet => planet.name !== selectedPlanet);
+    setPlanets(updated);
   }
   
-  function addSelectedPlanets(index){
-    setSelectedPlanets([...selectedPlanets, planets[index]]);
-  }
 
   return (
     <div>
@@ -31,10 +28,10 @@ const Home = () => {
             Select Planets you want to search in:
           </p>
           <div className='container'>
-            <Destination updatePlanet={updatePlanet} addSelectedPlanets={addSelectedPlanets} index="1"/>
-            <Destination updatePlanet={updatePlanet} addSelectedPlanets={addSelectedPlanets} index="2"/>
-            <Destination updatePlanet={updatePlanet} addSelectedPlanets={addSelectedPlanets} index="3"/>
-            <Destination updatePlanet={updatePlanet} addSelectedPlanets={addSelectedPlanets} index="4"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} index="1"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} index="2"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} index="3"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} index="4"/>
           </div>
         </div>
     </div>
