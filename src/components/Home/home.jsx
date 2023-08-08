@@ -4,17 +4,20 @@ import "./home.css";
 
 const Home = () => {
   const [planets, setPlanets] = useState([]);
-
+  const [vehicles, setVehicles] = useState([]);
   useEffect(()=>{
     fetch('https://findfalcone.geektrust.com/planets')
       .then(response => response.json())
       .then(data=> {setPlanets(data)})
       .catch(error => console.error(error));
+    fetch('https://findfalcone.geektrust.com/vehicles')
+      .then(response => response.json())
+      .then(data=> {setVehicles(data)})
+      .catch(error => console.error(error));
   },[]);
   
   function updatePlanet(selectedPlanet) {
     const updated = planets.filter(planet => planet.name !== selectedPlanet);
-    console.log(updated);
     setPlanets(updated);
   }
   
@@ -29,10 +32,10 @@ const Home = () => {
             Select Planets you want to search in:
           </p>
           <div className='container'>
-            <Destination updatePlanet={updatePlanet} planets={planets} index="1"/>
-            <Destination updatePlanet={updatePlanet} planets={planets} index="2"/>
-            <Destination updatePlanet={updatePlanet} planets={planets} index="3"/>
-            <Destination updatePlanet={updatePlanet} planets={planets} index="4"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="1"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="2"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="3"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="4"/>
           </div>
         </div>
     </div>
