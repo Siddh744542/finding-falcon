@@ -20,7 +20,12 @@ const Home = () => {
     const updated = planets.filter(planet => planet.name !== selectedPlanet);
     setPlanets(updated);
   }
-  
+  function updateVehicle(selectedVehicle) {
+    const index = vehicles.findIndex((vehicle)=> vehicle.name === selectedVehicle.name);
+    let updated = [...vehicles];
+    updated[index].total_no = updated[index].total_no-1;
+    setVehicles(updated);
+  }
 
   return (
     <div>
@@ -32,10 +37,10 @@ const Home = () => {
             Select Planets you want to search in:
           </p>
           <div className='container'>
-            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="1"/>
-            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="2"/>
-            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="3"/>
-            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} index="4"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="1"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="2"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="3"/>
+            <Destination updatePlanet={updatePlanet} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="4"/>
           </div>
         </div>
     </div>
