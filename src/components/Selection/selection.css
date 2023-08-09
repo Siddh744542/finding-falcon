@@ -1,8 +1,8 @@
-.selection-container{
+.selection-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    justify-content: left;
+    justify-content: flex-start;
     height: 12.5rem;
 }
 
@@ -14,5 +14,5 @@
 }
 
 input {
-    margin: 0.4rem;
-  }
+    margin: 0.4rem 0.4rem 0.4rem 0;
+}

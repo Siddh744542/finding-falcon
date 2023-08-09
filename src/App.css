@@ -11,6 +11,7 @@
     background: #C73E00;
     line-height: 1.15;
     font-size: 16px;
+    margin-top: 1rem;
 }
 .button:hover {
     transition: all .1s ease;

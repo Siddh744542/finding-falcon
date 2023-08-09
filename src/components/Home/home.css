@@ -1,14 +1,18 @@
 .heading {
-    color: #ff5000;
-    display: "flex";
+    color: #f50;
+    display: flex;
+    justify-content: center;
     text-align: center;
     font-size: 3rem;
 }
-body{
-    color:#571B00
+
+body {
+    color: #510;
 }
+
 .subheading {
-    display: "flex";
+    display: flex;
+    justify-content: center;
     text-align: center;
     font-size: 2rem;
 }
@@ -18,16 +22,18 @@ body{
     margin: 0 auto;
     max-width: 90%;
 }
-.sub-container{
+
+.sub-container {
     display: flex;
     justify-content: space-evenly;
     gap: 2rem;
+}
+
+.time-taken {
     margin: 0 auto;
 }
-.time-taken{
-    margin: 0 auto;
-}
-.button-box{
+
+.button-box {
     margin-top: 1.4rem;
     text-align: center;
 }
