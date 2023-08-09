@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import Destination from '../Destination/Destination';
+import Selection from '../Selection/Selection';
 import Header from "../Header"
 import "./home.css";
 import { useNavigate } from 'react-router-dom';
@@ -74,16 +74,19 @@ const Home = () => {
           </p>
           <div className='container'>
             <div className='sub-container'>
-              <Destination index="1"/>
-              <Destination index="2"/>
-              <Destination index="3"/>
-              <Destination index="4"/>
+              <Selection index="1"/>
+              <Selection index="2"/>
+              <Selection index="3"/>
+              <Selection index="4"/>
             </div>
-            <div>
+            <div className='time-taken'>
               <h2>Time Taken : {timeTaken}</h2>
             </div>
           </div>
-          <button onClick={handleSubmit}>Find Falcon</button>
+          <div className='button-box'>
+            <button className='button' onClick={handleSubmit}>Find Falcon</button>
+          </div>
+          
         </div>
     </div>
   )

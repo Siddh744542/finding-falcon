@@ -9,7 +9,7 @@ const Failure = () => {
         <Header />
         <h1>Failure! You have Failed King Shan.</h1>
         <h3>Time Taken : {timeTaken}</h3>
-        <Link to="/"> <button> Start Again </button></Link>
+        <Link to="/"> <button className="button"> Start Again </button></Link>
     </div>
   )
 }

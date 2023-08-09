@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"; 
-import "./destination.css"; 
+import "./selection.css"; 
 import { DataContext } from "../../context/dataProvider";
 
-const Destination = ({ index }) => { 
+const Selection = ({ index }) => { 
   const [selectedPlanet, setSelectedPlanet] = useState({ name: "Select", distance: 0 }); 
   const [selectedVehicle, setSelectedVehicle] = useState({});
   const [isOpen, setIsOpen] = useState(false);
@@ -110,4 +110,4 @@ const Destination = ({ index }) => {
   );
 };
  
-export default Destination;
+export default Selection;

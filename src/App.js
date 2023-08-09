@@ -3,6 +3,7 @@ import Success from "./components/Result/Success";
 import Failure from "./components/Result/Failure";
 import {BrowserRouter, Routes, Route } from "react-router-dom";
 import DataProvider from "./context/dataProvider";
+import "./App.css";
 function App() {
   return (
     <DataProvider>

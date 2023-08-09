@@ -1,8 +1,11 @@
 .heading {
-    color:blueviolet;
+    color: #ff5000;
     display: "flex";
     text-align: center;
     font-size: 3rem;
+}
+body{
+    color:#571B00
 }
 .subheading {
     display: "flex";
@@ -10,18 +13,21 @@
     font-size: 2rem;
 }
 
+.container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 90%;
+}
 .sub-container{
     display: flex;
     justify-content: space-evenly;
     gap: 2rem;
     margin: 0 auto;
-    border: 2px solid black
 }
-
-.container {
-    display: flex;
-    justify-content: space-between ;
+.time-taken{
     margin: 0 auto;
-    max-width: 80%;
-    border: 2px solid magenta
+}
+.button-box{
+    margin-top: 1.4rem;
+    text-align: center;
 }
