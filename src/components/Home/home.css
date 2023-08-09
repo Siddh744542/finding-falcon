@@ -1,14 +1,12 @@
 .heading {
-    color: #f50;
+    color: #AC3B61;
     display: flex;
     justify-content: center;
     text-align: center;
     font-size: 3rem;
 }
 
-body {
-    color: #510;
-}
+
 
 .subheading {
     display: flex;
