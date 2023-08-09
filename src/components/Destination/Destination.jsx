@@ -1,14 +1,30 @@
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react"; 
 import "./destination.css"; 
-const Destination = ({ updatePlanet, planets, vehicles, updateVehicle, index }) => { 
-  const [selected, setSelected] = useState({name: "Select", distance: 0}); 
+const Destination = ({updateSelectedValue, updatePlanet, addTime, planets, vehicles, updateVehicle, index }) => { 
+  const [selectedPlanet, setSelectedPlanet] = useState({name: "Select", distance: 0}); 
   const [selectedVehicle, setSelectedVehicle] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(()=>{
+    function sendValue(){
+      updateSelectedValue(selectedPlanet.name, selectedVehicle.name);
+     }
+     function sendTimeTaken(){
+        const timeTaken = selectedPlanet.distance / selectedVehicle.speed;
+        addTime(timeTaken);
+     }
+     if(selectedPlanet.name && selectedVehicle.name){
+      sendValue();
+      sendTimeTaken();
+     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[selectedVehicle.name]);
+
 
   const handleChange = (event) => { 
     const selectedValue = event.target.value; 
     const selectedIndex = event.target.options.selectedIndex-1;
-    setSelected({name: selectedValue, distance:planets[selectedIndex].distance});
+    setSelectedPlanet({name: selectedValue, distance:planets[selectedIndex].distance});
     updatePlanet(selectedValue); 
     setIsOpen(true);
   }; 
@@ -18,6 +34,8 @@ const Destination = ({ updatePlanet, planets, vehicles, updateVehicle, index }) 
   setSelectedVehicle(selected);
   setIsOpen(false);
  }
+
+
   const name = `destination${index}`; 
   return ( 
     <div>
@@ -26,11 +44,11 @@ const Destination = ({ updatePlanet, planets, vehicles, updateVehicle, index }) 
         <select 
           name={name} 
           id={name} 
-          value={selected.name} 
+          value={selectedPlanet.name} 
           onChange={handleChange} 
         > 
-          <option value={selected.name} disabled={selected.name !== "Select"}> 
-            {selected.name} 
+          <option value={selectedPlanet.name} disabled={selectedPlanet.name !== "Select"}> 
+            {selectedPlanet.name} 
           </option> 
           {planets.map((planet, index) => ( 
             <option key={index} value={planet.name}> 
@@ -51,11 +69,11 @@ const Destination = ({ updatePlanet, planets, vehicles, updateVehicle, index }) 
                      <input 
                         type="radio" 
                         id={vehicle.name} 
-                        name={selected.name} 
+                        name={selectedPlanet.name} 
                         value={selectedVehicle.name ? selectedVehicle.name : vehicle.name} 
-                        disabled= {(vehicle.total_no<=0 || selected.distance>vehicle.max_distance) ?true: false}
+                        disabled= {(vehicle.total_no<=0 || selectedPlanet.distance>vehicle.max_distance) ?true: false}
                         />
-                     <label htmlFor={vehicle.name} style={(vehicle.total_no<=0 || selected.distance>vehicle.max_distance)?{color:"#EBEBE4"}:{}} >{vehicle.name}({vehicle.total_no})</label><br></br>
+                     <label htmlFor={vehicle.name} style={(vehicle.total_no<=0 || selectedPlanet.distance>vehicle.max_distance)?{color:"#EBEBE4"}:{}} >{vehicle.name}({vehicle.total_no})</label><br></br>
                  </div>
                )
            })}
@@ -63,7 +81,7 @@ const Destination = ({ updatePlanet, planets, vehicles, updateVehicle, index }) 
        </fieldset>
        </div>: 
        <div>
-        {selected.name !== "Select"?
+        {selectedPlanet.name !== "Select"?
           <h4>{selectedVehicle.name} is selected.</h4> : 
           <></>
         }
