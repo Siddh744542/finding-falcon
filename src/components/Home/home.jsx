@@ -1,66 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Destination from '../Destination/Destination';
 import Header from "../Header"
 import "./home.css";
 import { useNavigate } from 'react-router-dom';
-
+import {DataContext} from  "../../context/dataProvider";
 const Home = () => {
-  const [planets, setPlanets] = useState([]);
-  const [vehicles, setVehicles] = useState([]);
-  const [selected, setSelected] = useState({token:"", planet_names:[], vehicle_names:[]});
-  const [timeTaken, setTimeTaken] = useState(0);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const { setPlanets, setVehicles, selected, setSelected, timeTaken, setTimeTaken } = useContext(DataContext);
+
+  const fetchData = async (url, setData) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(()=>{
-    //Get Planet
-    fetch('https://findfalcone.geektrust.com/planets')
-      .then(response => response.json())
-      .then(data=> {setPlanets(data)})
-      .catch(error => console.error(error));
-    
-    // Get Vehicles
-    fetch('https://findfalcone.geektrust.com/vehicles')
-      .then(response => response.json())
-      .then(data=> {setVehicles(data)})
-      .catch(error => console.error(error));
+    fetchData('https://findfalcone.geektrust.com/planets', setPlanets);
+    fetchData('https://findfalcone.geektrust.com/vehicles', setVehicles);
     
     // Get Token 
-    fetch("https://findfalcone.geektrust.com/token",{
+    fetch("https://findfalcone.geektrust.com/token", {
       method: "POST",
       cache: "default",
       headers: {
         Accept: 'application/json',
         "Content-Type": "application/json",
       },
-      body:""
+      body:"",
     })
-    .then(response => response.json())
-    .then(data=> {setSelected({...selected, token: data.token})})
-    .catch(error => console.error(error));
+      .then((response) => response.json())
+      .then((data)=> {
+        setSelected({ ...selected, token: data.token })
+      })
+      .catch(error => console.error(error));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
-  function updatePlanet(selectedPlanet) {
-    const updated = planets.filter(planet => planet.name !== selectedPlanet);
-    setPlanets(updated);
-  }
-  function updateVehicle(selectedVehicle) {
-    const index = vehicles.findIndex((vehicle)=> vehicle.name === selectedVehicle.name);
-    let updated = [...vehicles];
-    updated[index].total_no = updated[index].total_no-1;
-    setVehicles(updated);
-  }
-
-  function updateSelectedValue(planet, vehicle){
-    const updatedSelected = {
-      ...selected,
-      planet_names: [...selected.planet_names, planet],
-      vehicle_names: [...selected.vehicle_names, vehicle],
-    };
-    setSelected(updatedSelected);
-  }
-
   function handleSubmit(){
     console.log(selected);
+    
     fetch("https://findfalcone.geektrust.com/find",{
       method: "POST",
       cache: "default",
@@ -73,16 +55,14 @@ const Home = () => {
     .then(response => response.json())
     .then(data=> {
       if(data.status==="success"){
-        navigate("/success");
+        navigate(`/success/${data.planet_name}/${timeTaken}`);
       } else{
-        navigate("/failure");
+        navigate(`/failure/${timeTaken}`);
       }
-      console.log(data);})
+      setTimeTaken(0);
+      console.log(data);
+    })
     .catch(error => console.error(error));
-  }
-
-  function addTime(time){
-    setTimeTaken(timeTaken+time);
   }
 
   return (
@@ -93,11 +73,15 @@ const Home = () => {
             Select Planets you want to search in:
           </p>
           <div className='container'>
-            <Destination updateSelectedValue={updateSelectedValue} updatePlanet={updatePlanet} addTime={addTime} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="1"/>
-            <Destination updateSelectedValue={updateSelectedValue} updatePlanet={updatePlanet} addTime={addTime} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="2"/>
-            <Destination updateSelectedValue={updateSelectedValue} updatePlanet={updatePlanet} addTime={addTime} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="3"/>
-            <Destination updateSelectedValue={updateSelectedValue} updatePlanet={updatePlanet} addTime={addTime} planets={planets} vehicles={vehicles} updateVehicle={updateVehicle} index="4"/>
-            <h2>Time Taken : {timeTaken}</h2>
+            <div className='sub-container'>
+              <Destination index="1"/>
+              <Destination index="2"/>
+              <Destination index="3"/>
+              <Destination index="4"/>
+            </div>
+            <div>
+              <h2>Time Taken : {timeTaken}</h2>
+            </div>
           </div>
           <button onClick={handleSubmit}>Find Falcon</button>
         </div>

@@ -1,19 +1,22 @@
 import Home from "./components/Home/home";
-import Success from "./components/Success";
-import Failure from "./components/Failure";
+import Success from "./components/Result/Success";
+import Failure from "./components/Result/Failure";
 import {BrowserRouter, Routes, Route } from "react-router-dom";
-
+import DataProvider from "./context/dataProvider";
 function App() {
   return (
-    <BrowserRouter>
+    <DataProvider>
+      <BrowserRouter>
       <div className="App">
         <Routes>
           <Route path="/" element={ <Home/>}/>
-          <Route path="/success/" element={ <Success/>} />
-          <Route path="/failure" element={ <Failure/>} />   
+          <Route path="/success/:planetName/:timeTaken" element={ <Success/>} />
+          <Route path="/failure/:timeTaken" element={ <Failure/>} />   
         </Routes>
       </div>
     </BrowserRouter>
+    </DataProvider>
+ 
   );
 }
 
