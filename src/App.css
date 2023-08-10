@@ -33,3 +33,6 @@ select {
 select option{
     background-color: white;
 }
+option:hover{
+    background-color: #AC3B61;
+}
