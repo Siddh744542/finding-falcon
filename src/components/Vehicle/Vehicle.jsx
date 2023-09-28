@@ -20,7 +20,7 @@ const Vehicle = ({ isOpen, setIsOpen, selectedPlanet, selectedVehicleName, setSe
             <fieldset>
               <legend>Select a Vehicle:</legend>
               <form onChange={handleSelection}>
-                {vehicles.map((vehicle, index) => (
+                {vehicles?.map((vehicle, index) => (
                   <div key={index}>
                     <input
                       type="radio"

@@ -23,11 +23,15 @@ const Destination = ({ index, selectedPlanetName, setSelectedPlanet, setIsOpen }
           <option value={selectedPlanetName} disabled={selectedPlanetName !== "Select"}>
             {selectedPlanetName}
           </option>
-          {planets.map((planet, index) => (
-            <option key={index} value={planet.name}>
-              {planet.name}
-            </option>
-          ))}
+          {planets && planets.length > 0 ? (
+              planets.map((planet, index) => (
+                <option key={index} value={planet.name}>
+                  {planet.name}
+                </option>
+              ))
+            ) : (
+              <option disabled>Loading...</option>
+           )}
         </select>
       </div> 
   )
