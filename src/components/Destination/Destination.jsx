@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { DataContext } from '../context/dataProvider';
+import { DataContext } from '../../context/dataProvider';
 const Destination = ({ index, selectedPlanetName, setSelectedPlanet, setIsOpen }) => {
     const { planets, setPlanets } = useContext(DataContext);
 

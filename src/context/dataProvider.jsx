@@ -7,6 +7,7 @@ const DataProvider = ({children})=>{
     const [vehicles, setVehicles] = useState([]);
     const [selected, setSelected] = useState({token:"", planet_names:[], vehicle_names:[]});
     const [timeTaken, setTimeTaken] = useState(0);
+    const [isError, setIsError]= useState(false);
     return(
         <DataContext.Provider value={{
              planets,
@@ -16,7 +17,9 @@ const DataProvider = ({children})=>{
              selected,
              setSelected,
              timeTaken,
-             setTimeTaken
+             setTimeTaken,
+             isError,
+             setIsError
         }}> 
         {children}
         </DataContext.Provider>

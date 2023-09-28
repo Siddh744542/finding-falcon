@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from "../Header";
+import Header from "../Header/Header";
 import { Link, useParams } from 'react-router-dom';
 import "./result.css";
 

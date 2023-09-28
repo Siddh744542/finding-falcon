@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from 'react';
 import Selection from '../Selection/Selection';
-import Header from "../Header"
+import Header from "../Header/Header"
 import "./home.css";
 import { useNavigate } from 'react-router-dom';
 import {DataContext} from  "../../context/dataProvider";
 const Home = () => {
   const navigate = useNavigate();
-  const { setPlanets, setVehicles, selected, setSelected, timeTaken, setTimeTaken } = useContext(DataContext);
+  const { setPlanets, setVehicles, selected, setSelected, timeTaken, setTimeTaken, isError, setIsError } = useContext(DataContext);
 
   const fetchData = async (url, setData) => {
     try {
@@ -41,28 +41,30 @@ const Home = () => {
   },[]);
   
   function handleSubmit(){
-    console.log(selected);
-    
-    fetch("https://findfalcone.geektrust.com/find",{
-      method: "POST",
-      cache: "default",
-      headers: {
-        Accept: 'application/json',
-        "Content-Type": "application/json",
-      },
-      body:JSON.stringify(selected),
-    })
-    .then(response => response.json())
-    .then(data=> {
-      if(data.status==="success"){
-        navigate(`/success/${data.planet_name}/${timeTaken}`);
-      } else{
-        navigate(`/failure/${timeTaken}`);
-      }
-      setTimeTaken(0);
-      console.log(data);
-    })
-    .catch(error => console.error(error));
+    if(selected.planet_names.length!==4){
+      setIsError(true);
+    } else {
+      fetch("https://findfalcone.geektrust.com/find",{
+        method: "POST",
+        cache: "default",
+        headers: {
+          Accept: 'application/json',
+          "Content-Type": "application/json",
+        },
+        body:JSON.stringify(selected),
+      })
+      .then(response => response.json())
+      .then(data=> {
+        if(data.status==="success"){
+          navigate(`/success/${data.planet_name}/${timeTaken}`);
+        } else{
+          navigate(`/failure/${timeTaken}`);
+        }
+        setTimeTaken(0);
+        console.log(data);
+      })
+      .catch(error => console.error(error));
+    }
   }
 
   return (
@@ -72,6 +74,13 @@ const Home = () => {
           <p className='subheading'>
             Select Planets you want to search in:
           </p>
+          {
+            isError && (
+              <div className='warning'>
+                Please select 4 planets and 4 vehicles to find the Falcon
+              </div>
+            )
+          }
           <div className='container'>
             <div className='sub-container'>
               <Selection index="1"/>
@@ -86,7 +95,6 @@ const Home = () => {
           <div className='button-box'>
             <button className='button' onClick={handleSubmit}>Find Falcon</button>
           </div>
-          
         </div>
     </div>
   )

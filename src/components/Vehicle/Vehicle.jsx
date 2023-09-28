@@ -1,5 +1,5 @@
 import React,{ useContext } from 'react';
-import { DataContext } from '../context/dataProvider';
+import { DataContext } from '../../context/dataProvider';
 const Vehicle = ({ isOpen, setIsOpen, selectedPlanet, selectedVehicleName, setSelectedVehicle}) => {
     const { vehicles, setVehicles } = useContext(DataContext);
   
